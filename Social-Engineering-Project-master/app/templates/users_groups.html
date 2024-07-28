@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Users & Groups{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 style="color:black;">Users & Groups</h1>
+    <div class="d-flex justify-content-start mb-3">
+        <button type="button" class="btn btn-success" id="newGroupBtn">+ New Group</button>
+    </div>
+    <div class="no-groups">
+        No groups created yet. Let's create one!
+    </div>
+</div>
+
+<!-- Modal HTML -->
+<div id="groupModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Create New Group</h2>
+        <form id="upload-form" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="group-name" class="form-label">Group Name</label>
+                <input class="form-control" type="text" id="group-name" name="group_name" required>
+            </div>
+            <div class="mb-3">
+                <label for="file-input" class="form-label">Upload File</label>
+                <input class="form-control" type="file" id="file-input" name="file">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="startUpload()">Add Group</button>
+        </form>
+    </div>
+</div>
+
+<link rel="stylesheet" href="../static/css/users_groups.css">
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("groupModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("newGroupBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    async function startUpload() {
+        const fileInput = document.getElementById('file-input');
+        const groupName = document.getElementById('group-name').value;
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+        formData.append('group_name', groupName);
+
+        try {
+            const response = await axios.post('/api/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            if (response.status === 200) {
+                alert('File uploaded successfully!');
+                fetchVictims();
+                fetchAnalytics();
+            } else {
+                alert('File upload failed!');
+            }
+        } catch (error) {
+            console.error('Error uploading file:', error);
+            alert('File upload failed!');
+        }
+    }
+
+    function sendAllEmails() {
+        // Implement the function to send all emails here
+        alert('Sending all emails!');
+    }
+
+    function fetchVictims() {
+        // Implement the function to fetch victims here
+    }
+
+    function fetchAnalytics() {
+        // Implement the function to fetch analytics here
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        .chart-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .chart-container {
+            flex: 1 1 calc(20% - 20px);
+            min-width: 240px;
+            margin: 10px;
+        }
+        .chart-large-container {
+            width: 100%;
+            margin: 20px 0;
+        }
+        /* Custom styles can be added here */
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">User Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <form action="/logout" method="post" style="margin: 0;">
+                            <button type="submit" class="btn btn-danger"><span class="fa fa-sign-out-alt mr-2"></span>Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    <div class="container mt-5">
+        <h2>Welcome</h2>
+
+        <div class="chart-row mt-5">
+            <div id="chartContainer1" class="chart-container" style="height: 300px;"></div>
+            <div id="chartContainer2" class="chart-container" style="height: 300px;"></div>
+            <div id="chartContainer3" class="chart-container" style="height: 300px;"></div>
+            <div id="chartContainer4" class="chart-container" style="height: 300px;"></div>
+            <div id="chartContainer5" class="chart-container" style="height: 300px;"></div>
+        </div>
+        <div id="chartContainer6" class="chart-large-container" style="height: 400px;"></div>
+    </div>
+
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            async function fetchAnalytics() {
+                try {
+                    const response = await axios.get('/api/analytics');
+                    const analytics = response.data;
+
+                    var chart1 = new CanvasJS.Chart("chartContainer1", {
+                        backgroundColor: "#f4f4f4",
+                        legend: {
+                            maxWidth: 150,
+                            itemWidth: 120
+                        },
+                        title: {
+                            text: "All Actions vs Email Sending Successful",
+                            fontSize: 20,
+                            fontColor: "#333",
+                        },
+                        data: [
+                            {
+                                type: "pie",
+                                showInLegend: true,
+                                legendText: "{indexLabel}",
+                                dataPoints: [
+                                    { y: analytics.total_records, indexLabel: "All Actions" },
+                                    { y: analytics.sent_records, indexLabel: "Email sending successful" }
+                                ]
+                            }
+                        ]
+                    });
+                    chart1.render();
+
+                    var chart2 = new CanvasJS.Chart("chartContainer2", {
+                        backgroundColor: "#f4f4f4",
+                        legend: {
+                            maxWidth: 350,
+                            itemWidth: 120
+                        },
+                        title: {
+                            text: "Email Sending Successful vs Email Was Opened",
+                            fontSize: 20,
+                            fontColor: "#333",
+                        },
+                        data: [
+                            {
+                                type: "pie",
+                                showInLegend: true,
+                                legendText: "{indexLabel}",
+                                dataPoints: [
+                                    { y: analytics.sent_records, indexLabel: "Email sending successful" },
+                                    { y: analytics.num_of_opened, indexLabel: "Email was opened" }
+                                ]
+                            }
+                        ]
+                    });
+                    chart2.render();
+
+                    var chart3 = new CanvasJS.Chart("chartContainer3", {
+                        backgroundColor: "#f4f4f4",
+                        legend: {
+                            maxWidth: 350,
+                            itemWidth: 120
+                        },
+                        title: {
+                            text: "Email Was Opened vs Malicious Link Was Clicked",
+                            fontSize: 20,
+                            fontColor: "#333",
+                        },
+                        data: [
+                            {
+                                type: "pie",
+                                showInLegend: true,
+                                legendText: "{indexLabel}",
+                                dataPoints: [
+                                    { y: analytics.num_of_opened, indexLabel: "Email was opened" },
+                                    { y: analytics.num_of_clicked, indexLabel: "Malicious link was clicked" }
+                                ]
+                            }
+                        ]
+                    });
+                    chart3.render();
+
+                    var chart4 = new CanvasJS.Chart("chartContainer4", {
+                        backgroundColor: "#f4f4f4",
+                        legend: {
+                            maxWidth: 350,
+                            itemWidth: 120
+                        },
+                        title: {
+                            text: "Malicious Link Was Clicked vs Data Was Submitted",
+                            fontSize: 20,
+                            fontColor: "#333",
+                        },
+                        data: [
+                            {
+                                type: "pie",
+                                showInLegend: true,
+                                legendText: "{indexLabel}",
+                                dataPoints: [
+                                    { y: analytics.num_of_clicked, indexLabel: "Malicious link was clicked" },
+                                    { y: analytics.num_of_submitted, indexLabel: "Data was submitted" }
+                                ]
+                            }
+                        ]
+                    });
+                    chart4.render();
+
+                    var chart5 = new CanvasJS.Chart("chartContainer5", {
+                        backgroundColor: "#f4f4f4",
+                        legend: {
+                            maxWidth: 350,
+                            itemWidth: 120
+                        },
+                        title: {
+                            text: "All Actions vs Data Was Submitted",
+                            fontSize: 20,
+                            fontColor: "#333",
+                        },
+                        data: [
+                            {
+                                type: "pie",
+                                showInLegend: true,
+                                legendText: "{indexLabel}",
+                                dataPoints: [
+                                    { y: analytics.total_records, indexLabel: "All Actions" },
+                                    { y: analytics.num_of_submitted, indexLabel: "Data was submitted" }
+                                ]
+                            }
+                        ]
+                    });
+                    chart5.render();
+
+                    var chart6 = new CanvasJS.Chart("chartContainer6", {
+                        backgroundColor: "#f4f4f4",
+                        title: {
+                            text: "Summary of Actions",
+                            fontSize: 24,
+                            fontColor: "#333",
+                        },
+                        data: [
+                            {
+                                type: "column",
+                                dataPoints: [
+                                    { label: "All Actions", y: analytics.total_records },
+                                    { label: "Email sending successful", y: analytics.sent_records },
+                                    { label: "Email was opened", y: analytics.num_of_opened },
+                                    { label: "Malicious link was clicked", y: analytics.num_of_clicked },
+                                    { label: "Data was submitted", y: analytics.num_of_submitted }
+                                ],
+                            }
+                        ]
+                    });
+                    chart6.render();
+
+                } catch (error) {
+                    console.error('Error fetching analytics:', error);
+                }
+            }
+
+            fetchAnalytics();
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

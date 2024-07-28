@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Users{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Manage Users</h2>
+    <form action="/api/adduser" method="post" class="mb-4">
+        <div class="row">
+            <div class="col-md-4">
+                <input type="text" name="username" class="form-control" placeholder="Username" required>
+            </div>
+            <div class="col-md-4">
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary">Add User</button>
+            </div>
+        </div>
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>
+                    <form action="/api/deleteuser" method="post" style="display:inline;">
+                        <input type="hidden" name="username" value="{{ user.username }}">
+                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

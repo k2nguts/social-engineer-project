@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}Export CSV{% endblock %}
+
+{% block content %}
+<style>
+    /* CSS styles for export_data.html */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f0f0f0;
+    }
+
+    .content-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+    }
+
+    .container {
+        text-align: center;
+        max-width: 600px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+    h1 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        margin: 10px auto;
+        padding: 15px 20px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<div class="content-container">
+    <div class="container">
+        <h1>Export Data as CSV</h1>
+
+        <button id="exportOpened">Whoever opened the mail, export it!!</button>
+        <button id="exportClicked">Whoever clicked the link, export it!!</button>
+        <button id="exportSubmitted">Whoever submitted the data, export it!!</button>
+        <button id="exportAll">Export All Victims Data!!</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+    document.getElementById('exportOpened').addEventListener('click', async function() {
+        try {
+            const response = await axios.get('/api/export_data/opened', { responseType: 'blob' });
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'opened_emails.csv');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (error) {
+            console.error('Error exporting opened emails:', error);
+        }
+    });
+
+    document.getElementById('exportClicked').addEventListener('click', async function() {
+        try {
+            const response = await axios.get('/api/export_data/clicked', { responseType: 'blob' });
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'clicked_links.csv');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (error) {
+            console.error('Error exporting clicked links:', error);
+        }
+    });
+
+    document.getElementById('exportSubmitted').addEventListener('click', async function() {
+        try {
+            const response = await axios.get('/api/export_data/submitted', { responseType: 'blob' });
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'submitted_data.csv');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (error) {
+            console.error('Error exporting submitted data:', error);
+        }
+    });
+
+    document.getElementById('exportAll').addEventListener('click', async function() {
+        try {
+            const response = await axios.get('/api/export_data/all', { responseType: 'blob' });
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'all_data.csv');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (error) {
+            console.error('Error exporting all data:', error);
+        }
+    });
+</script>
+{% endblock %}

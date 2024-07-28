@@ -1,0 +1,165 @@
+/* Genel Stil */
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f8f9fa;
+    color: black; /* Tüm yazıların rengini siyah yapar */
+}
+
+.navbar {
+    border-bottom: 1px solid #dee2e6;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #343a40;
+    color: #ffffff;
+    transition: all 0.3s;
+    border-right: 1px solid #dee2e6;
+}
+
+#sidebar .list-group-item {
+    border: none;
+    padding: 15px 20px;
+    color: #ffffff;
+}
+
+#sidebar .list-group-item:hover {
+    background-color: #495057;
+    color: #ffffff;
+}
+
+#sidebar .list-group-item.active {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    background-color: #ffffff;
+    /* color: black; kaldırıldı */
+}
+
+.sidebar-heading {
+    padding: 20px;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ffffff;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Modal Container */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 600px; /* Maximum width for the modal */
+    border-radius: 5px; /* Rounded corners */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Modal Form Styles */
+.modal-content h2 {
+    margin-top: 0;
+    color: black; /* Başlık rengini siyah yapar */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: black; /* Etiketlerin rengini siyah yapar */
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+/* Buttons */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-success {
+    background-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+/* Additional Styles */
+.no-campaigns {
+    margin-top: 20px;
+    font-size: 18px;
+    color: black; /* No campaigns mesajının rengini siyah yapar */
+}
+
+/* Başlık elemanları için renk ayarları */
+h1, h2, h3, h4, h5, h6 {
+    color: black; /* Başlıkların rengini siyah yapar */
+}
+
+a {
+    color: black; /* Linklerin rengini siyah yapar */
+}

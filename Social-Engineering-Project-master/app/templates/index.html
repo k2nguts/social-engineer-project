@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/transitional.dtd">
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://suisimg.sabanciuniv.edu/css/web_defaultapp.css?20210817" type="text/css">
+    <link rel="stylesheet" href="https://suisimg.sabanciuniv.edu/css/web_defaultprint.css" type="text/css" media="print">
+    <title>User Login</title>
+</head>
+<body onload="document.loginform.UserID.focus()">
+    <div class="headerwrapperdiv">
+        <div class="pageheaderdiv1">
+            <a href="#main_content" onMouseover="window.status='Go to Main Content'; return true" onMouseout="window.status=''; return true" onFocus="window.status='Go to Main Content'; return true" onBlur="window.status=''; return true" class="skiplinks">Go to Main Content</a>
+            <h1>su</h1>
+        </div>
+        <div class="headerlinksdiv"></div>
+        <table class="plaintable" summary="This table displays Menu Items and Banner Search textbox." width="100%">
+            <tr>
+                <td class="pldefault">
+                    <div class="headerlinksdiv2">&nbsp;</div>
+                </td>
+                <td class="pldefault">
+                    <p class="rightaligntext">
+                        <span class="pageheaderlinks">| 
+                            <a href="/login" accesskey="3" class="submenulinktext2">EXIT</a>
+                        </span>
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="pagetitlediv">
+        <table class="plaintable" summary="This table displays title and static header displays." width="100%">
+            <tr>
+                <td class="pldefault">
+                    <h2>User Login</h2>
+                </td>
+                <td class="pldefault">&nbsp;</td>
+                <td class="pldefault">
+                    <p class="rightaligntext"></p>
+                    <div class="staticheaders"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="bg3" width="100%" colspan="3"><img src="https://suisimg.sabanciuniv.edu/wtlgifs/web_transparent.gif" alt="Transparent Image" class="headerImg" title="Transparent Image" name="web_transparent" hspace="0" vspace="0" border="0" height="3" width="10" /></td>
+            </tr>
+        </table>
+        <a name="main_content"></a>
+    </div>
+    <div class="pagebodydiv">
+        <div class="infotextdiv">
+            <table class="infotexttable" summary="This layout table contains information that may be helpful in understanding the content and functionality of this page.  It could be a brief set of instructions, a description of error messages, or other special information.">
+                <tr>
+                    <td class="indefault">
+                        <img src="https://suisimg.sabanciuniv.edu/wtlgifs/web_redflag.gif" alt="Action Alert" class="headerImg" title="Action Alert" name="web_redflag" hspace="0" vspace="0" border="0" height="16" width="16" />
+                    </td>
+                    <td class="indefault">
+                        <span class="infotext">
+                            <span style="font-size:14px;">
+                                Please enter your SU-Net Username (case-sensitive) and SU-Net Password and then click Login to enter this site!<br /><br />
+                                When you are <b>finished, please Exit</b> and close your browser to protect your privacy.<br /><br />
+
+                                <b>If you do not remember your password,</b><br />
+                                Please contact with the Callcenter (9988). IT Help Desk operators will assign a new password and inform you as soon as possible.<br /><br /> 
+                            </span>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <form action="/login2" method="post" name="loginform" autocomplete="off">
+            <table class="dataentrytable" summary="This data entry table is used to format the user login fields">
+                <tr>
+                    <td class="delabel" scope="row"><label for="UserID"><span class="fieldlabeltext">SU-Net Username :</span></label></td>
+                    <td class="dedefault"><input type="text" name="sid" size="42" maxlength="40" id="UserID" /></td>
+                </tr>
+                <tr>
+                    <td class="delabel" scope="row"><label for="PIN"><span class="fieldlabeltext">SU-Net Password :</span></label></td>
+                    <td class="dedefault"><input type="password" name="PIN" size="42" maxlength="41" id="PIN" /></td>
+                </tr>
+                <tr>
+                    <td><input type="hidden" name="token" value="{{token}}" /></td>
+                </tr>
+            </table>
+            <p>
+                <input type="submit" value="login" />
+                &nbsp;
+            </p>
+        </form>
+        <table class="plaintable" summary="This is table displays line separator at end of the page." width="100%" cellspacing="0" cellpadding="0" border="0">
+            <tr>
+                <td class="bgtabon" width="100%" colspan="2"><img src="https://suisimg.sabanciuniv.edu/wtlgifs/web_transparent.gif" alt="Transparent Image" class="headerImg" title="Transparent Image" name="web_transparent" hspace="0" vspace="0" border="0" height="3" width="10" /></td>
+            </tr>
+        </table>
+        <a href="#top" onMouseover="window.status='Skip to top of page'; return true" onMouseout="window.status=''; return true" onFocus="window.status='Skip to top of page'; return true" onBlur="window.status=''; return true" class="skiplinks">Skip to top of page</a>
+    </div>
+    <div class="footerbeforediv"></div>
+    <div class="footerafterdiv"></div>
+    <div class="globalafterdiv"></div>
+    <div class="globalfooterdiv"></div>
+    <div class="pagefooterdiv">
+        <span class="releasetext">Release: 8.9.1</span>
+    </div>
+    <div class="poweredbydiv"></div>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="div3"></div>
+    <div class="div4"></div>
+    <div class="div5"></div>
+    <div class="div6"></div>
+    <div class="banner_copyright"></div>
+</body>
+</html>

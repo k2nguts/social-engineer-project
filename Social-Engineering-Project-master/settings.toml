@@ -1,0 +1,13 @@
+[database]
+uri = "mongodb://127.0.0.1:27017/"
+database = "Social"
+
+[email]
+smtp_server = "smtp.gmail.com"
+smtp_port = 587
+sender_email = "kaanaydin2003@gmail.com"
+sender_password = "nvdw rkva wqix hjnl"
+
+[jwt]
+secret_key = "your-secret-key"
+algorithm = "HS256"

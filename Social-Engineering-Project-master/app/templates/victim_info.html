@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Victim Information{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Victim Information</h1>
+    <div class="table-responsive mb-4">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>Token</th>
+                    <td>{{ victim.token }}</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>{{ victim.name }}</td>
+                </tr>
+                <tr>
+                    <th>Surname</th>
+                    <td>{{ victim.surname }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ victim.email }}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ victim.status }}</td>
+                </tr>
+                <tr>
+                    <th>Department</th>
+                    <td>{{ victim.department }}</td>
+                </tr>
+                <tr>
+                    <th>Number of Opened</th>
+                    <td>{{ victim.num_of_opened }}</td>
+                </tr>
+                <tr>
+                    <th>Number of Clicked</th>
+                    <td>{{ victim.num_of_clicked }}</td>
+                </tr>
+                <tr>
+                    <th>Number of Submitted</th>
+                    <td>{{ victim.num_of_submitted }}</td>
+                </tr>
+                <tr>
+                    <th>Name Surname Hash</th>
+                    <td>{{ victim.name_surname_hash }}</td>
+                </tr>
+                <tr>
+                    <th>Mail Opening Info</th>
+                    <td>
+                        <ul>
+                            {% for item in victim.mail_opening_info %}
+                                <li>{{ item.opened_date }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Link Clicking Info</th>
+                    <td>
+                        <ul>
+                            {% for item in victim.link_clicking_info %}
+                                <li>IP: {{ item.ip }}, User Agent: {{ item.user_agent }}, Click Date: {{ item.click_date }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Data Submitting Info</th>
+                    <td>
+                        <ul>
+                            {% for item in victim.data_submitting_info %}
+                                <li>IP: {{ item.ip }}, User Agent: {{ item.user_agent }}, Submit Date: {{ item.submit_date }}, Submitted Username/Password: {{ item.submitted_username_password }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

